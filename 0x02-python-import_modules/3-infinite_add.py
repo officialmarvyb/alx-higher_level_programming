@@ -4,6 +4,6 @@ if __name__ == "__main__":
 
     a = sys.argv
     result = 0
-    for b in range(len(a) - 1):
-        result = result + int(a[b + 1])
+    for n in range(1, len(a)):
+        result = result + int(a[n])
     print("{}".format(result))
