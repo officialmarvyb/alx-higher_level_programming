@@ -3,8 +3,8 @@ def square_matrix_simple(matrix=[]):
     new_matr = []
     a = 0
     for i in matrix:
-        Newsquare.append([])
+        new_matr.append([])
         for x in matrix[a]:
-            Newsquare[a].append(x**2)
+            new_matr[a].append(x**2)
         a += 1
-    return (Newsquare)
+    return (new_matr)
