@@ -1,9 +1,13 @@
 #!/usr/bin/python3
 def weight_average(my_list=[]):
-    if len(my_list) == 0:
+    if not my_list:
         return 0
+    
+    new_sum = 0
+    new_weight = 0
 
-    return sum([mul(x[0], x[1]) for x in my_list]) / sum(x[1] for x in my_list)
+    for score, weight in my_list:
+        new_sum += score * weight
+        new_weight += weight
 
-def mul(x, y):
-    return x * y
+    return new_sum / new_weight
