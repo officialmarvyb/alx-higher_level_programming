@@ -30,57 +30,62 @@ def sol_board(board):
                 break
     return solution
 
-def is_safe(board, row, col):
-    # Check the row on the left side
-    for i in range(col):
-        if board[row][i] == 1:
-            return False
 
-    # Check upper diagonal
-    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
+def safe_spot(board, row, col):
+    """Function to check if a queen can
+    be placed at the specified position
 
-    # Check lower diagonal
-    for i, j in zip(range(row, len(board), 1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
+    Args:
+        board (list): The current working chessboard.
+        row (int): The row where a queen was last played.
+        col (int): The column where a queen was last played.
+    """
+    n = len(board)
+    # X out all spots horizontally
+    for c in range(n):
+        if c != col:
+            board[row][c] = 'x'
+    # X out all spots vertically
+    for r in range(n):
+        if r != row:
+            board[r][col] = 'x'
+    # X out all spots diagonally
+    for i in range(n):
+        for j in range(n):
+            if i != row and j != col and abs(i - row) == abs(j - col):
+                board[i][j] = 'x'
 
-    return True
 
-def solve_n_queens(board, col):
-    # If all queens are placed then return true
-    if col >= len(board):
-        return True
+def r_sol(board, row, queens, solutions):
+    """Recursively solve an N-queens puzzle.
 
-    # Place this queen in all rows one by one
-    for i in range(len(board)):
-        if is_safe(board, i, col):
-            # Place this queen in board[i][col]
-            board[i][col] = 1
+    Args:
+        board (list): The current working chessboard.
+        row (int): The current working row.
+        queens (int): The current number of placed queens.
+        solutions (list): A list of lists of solutions.
+    Returns:
+        solutions (list): A list of lists containing solutions.
+    """
+    n = len(board)
+    if queens == n:
+        solutions.append(sol_board(board))
+        return solutions
 
-            # Recur to place rest of the queens
-            if solve_n_queens(board, col + 1):
-                return True
+    for c in range(n):
+        if board[row][c] == " ":
+            tmp_board = [row[:] for row in board]  # Create a copy of the board
+            tmp_board[row][c] = "Q"
+            safe_spot(tmp_board, row, c)
+            solutions = r_sol(tmp_board, row + 1, queens + 1, solutions)
 
-            # If placing queen in board[i][col] doesn't lead to a solution, then remove queen from board[i][col]
-            board[i][col] = 0
-
-    return False
+    return solutions
 
 
 if __name__ == "__main__":
     """
     Check if the correct number of arguments is provided
     """
-    N = 4
-    board = [[0]*N for _ in range(N)]
-    if not solve_n_queens(board, 0):
-        print("Solution does not exist")
-    else:
-        for row in board:
-	print(row)
-
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
