@@ -1,6 +1,9 @@
 #!/usr/bin/python3
+"""
+  Function that defines an
+  an inherited list class MyList
+"""
 
-"""Defines an inherited list class MyList."""
 
 class MyList(list):
     """Implements sorted list printing in ascending order."""
