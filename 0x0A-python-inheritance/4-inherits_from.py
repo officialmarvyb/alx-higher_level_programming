@@ -3,7 +3,6 @@
 """Defines an inherited class-checking function."""
 
 
-
 def inherits_from(obj, a_class):
     """Return obj inherits from a_class.
     """
