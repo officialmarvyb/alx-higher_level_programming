@@ -4,6 +4,9 @@
   attribute lookup.
 """
 
+
 def lookup(obj):
-    """Returns a list of attributes available for an object"""
+    """This returns a list of
+        an object's available attributes.
+    """
     return (dir(obj))
