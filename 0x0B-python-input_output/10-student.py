@@ -22,7 +22,7 @@ class Student:
         return:
             dictionary
         """
-        if not attrs:
+        if not attrs or not all(isinstance(attr, str) for attr in attrs):
             return self.__dict__
 
         return ({key: value for key, value in self.__dict__.items()
