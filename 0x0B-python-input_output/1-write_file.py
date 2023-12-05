@@ -7,9 +7,13 @@ the number of characters written.
 
 
 def write_file(filename="", text=""):
-    """Return the number of lines in a text file."""
-    lines = 0
-    with open(filename) as f:
-        for line in f:
-            lines += 1
-    return lines
+    """
+    Write a string to a text file (UTF-8) and return the number of char.
+    :param filename: The name of the file to write.
+    :param text: The string to be written to the file.
+    :return: The number of characters written to the file.
+             Returns -1 on erroe.
+    """
+    with open(filename, mode="w", encoding="utf-8") as f:
+        if f.write(text):
+            return len(text)
